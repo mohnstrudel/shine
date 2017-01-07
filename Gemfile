@@ -30,6 +30,9 @@ gem 'devise'
 # Manage Bower with a gem
 gem 'bower-rails'
 
+# Using faker to create fake data
+gem 'faker'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
