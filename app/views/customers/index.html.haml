@@ -1,30 +1,34 @@
-%header
-	%h1.h2
-		Customer Search
-
-%section.search-form
-	=form_for :customers, method: :get do |f|
-		.input-group.input-group-lg
-			= label_tag :keywords, nil, class: "sr-only"
-			= text_field_tag :keywords, nil, placeholder: "First Name, Last Name or Email Address", class: "form-control input-lg"
-			%span.input-group-btn
-				= submit_tag "Find Customers", class: "btn btn-primary btn-lg"
-
-%section.search-results
+%article{"ng-app" => "customers", "ng-controller" => "CustomerSearchController"}
 	%header
-		%h1.h3 Results
-		= render partial: "pager", locals: { keywords: @keywords, page: @page }
-	%ol.list-group
-		-@customers.each do |customer|
-			%li.list-group-item.clearfix
+		%h1.h2
+			Customer Search
+
+	%section.search-form
+		%form
+			.input-group.input-group-lg
+				= label_tag :keywords, nil, class: "sr-only"
+				%input.form-control.input-lg{type: "text", name: "keywords", placeholder: "First Name, Last Name, or Email Address", "ng-model" => "keywords", "ng-change" => "search(keywords)"}
+				%span.input-group-btn
+					%button.btn.btn-primary.btn-lg{"ng-click" => "search(keywords)"}
+						Find Customers
+		%h1.searchedFor{"ng-if" => "searchedFor"}
+			%small Searched for:
+			{{searchedFor}}
+
+	%section.search-results
+		%header
+			%h1.h3 Results
+			= render partial: "pager", locals: { keywords: @keywords, page: @page }
+		%ol.list-group
+			%li.list-group-item.clearfix{"ng-repeat" => "customer in customers"}
 				%h3.pull-right
 					%small.text-uppercase
 						Joined 
-					=l customer.created_at.to_date
+					{{customer.created_at | date}}
 				%h2.h3
-					="#{customer.first_name} #{customer.last_name}"
+					{{customer.first_name}} {{customer.last_name}}
 					%small
-						=customer.username
+						{{ customer.username }}
 				%h4
-					=customer.email
-	= render partial: "pager", locals: { keywords: @keywords, page: @page }
+					{{customer.email}}
+		= render partial: "pager", locals: { keywords: @keywords, page: @page }
