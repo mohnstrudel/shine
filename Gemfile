@@ -45,6 +45,16 @@ gem 'faker'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  # Let's test the app with RSpec
+  gem "rspec-rails", "~> 3.0"
+
+  # START_HIGHLIGHT
+  gem 'poltergeist'
+  # END_HIGHLIGHT
+
+  gem 'database_cleaner'
+  gem 'teaspoon'
+  gem 'teaspoon-jasmine'
 end
 
 group :development do

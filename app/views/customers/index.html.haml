@@ -15,7 +15,7 @@
 			%small Searched for:
 			{{searchedFor}}
 
-	%section.search-results
+	%section.search-results{"ng-if" => "customers.length > 0"}
 		%header
 			%h1.h3 Results
 			= render partial: "pager", locals: { keywords: @keywords, page: @page }
