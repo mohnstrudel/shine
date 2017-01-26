@@ -14,4 +14,9 @@
 		username:   "#{Faker::Internet.user_name}#{i}",
 		email:      Faker::Internet.user_name + i.to_s + "@#{Faker::Internet.domain_name}"
 		)
+	if i % 1000 == 0
+		print "\r"
+		puts "Inserted #{i} records."
+		print "\r"
+	end
 end

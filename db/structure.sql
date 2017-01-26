@@ -70,7 +70,8 @@ CREATE TABLE customers (
     email character varying NOT NULL,
     username character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    keywords text
 );
 
 
@@ -189,6 +190,13 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: customers_keywords_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX customers_keywords_index ON customers USING gin (to_tsvector('english'::regconfig, keywords));
+
+
+--
 -- Name: customers_lower_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -214,6 +222,13 @@ CREATE INDEX customers_lower_last_name ON customers USING btree (lower((last_nam
 --
 
 CREATE UNIQUE INDEX index_customers_on_email ON customers USING btree (email);
+
+
+--
+-- Name: index_customers_on_keywords; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_customers_on_keywords ON customers USING btree (keywords);
 
 
 --
@@ -259,4 +274,10 @@ INSERT INTO schema_migrations (version) VALUES ('20170104162736');
 INSERT INTO schema_migrations (version) VALUES ('20170104182628');
 
 INSERT INTO schema_migrations (version) VALUES ('20170104192856');
+
+INSERT INTO schema_migrations (version) VALUES ('20170108182447');
+
+INSERT INTO schema_migrations (version) VALUES ('20170109053132');
+
+INSERT INTO schema_migrations (version) VALUES ('20170109055222');
 

@@ -11,6 +11,14 @@ class CustomersController < ApplicationController
 				customer_search_term.where_args).
 			order(customer_search_term.order).
 			offset(PAGE_SIZE * @page).limit(PAGE_SIZE)
+
+			# Plain search method using keywords as text
+			# those method are to be compared with custom SQL
+			# search 
+			# @customers = Customer.search(@keywords)
+
+			# @customers = Customer.ft_search(@keywords)
+
 		else
 			@customers = []
 		end
